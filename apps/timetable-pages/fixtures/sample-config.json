@@ -1,0 +1,15 @@
+{
+  "periods_per_day": 5,
+  "short_break_minutes": 5,
+  "lunch_break_minutes": 40,
+  "lunch_after_period": 4,
+  "working_days": 5,
+  "classes": [
+    { "grade": 5, "section": "A" },
+    { "grade": 5, "section": "B" }
+  ],
+  "teachers": [
+    { "id": 1, "name": "Alice", "subject": "Mathematics" },
+    { "id": 2, "name": "Bob", "subject": "English" }
+  ]
+}

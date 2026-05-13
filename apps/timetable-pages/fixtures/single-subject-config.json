@@ -1,0 +1,6 @@
+{
+  "periods_per_day": 5,
+  "working_days": 5,
+  "classes": [{ "grade": 1, "section": "" }],
+  "teachers": [{ "id": 1, "name": "Solo", "subject": "Mathematics" }]
+}

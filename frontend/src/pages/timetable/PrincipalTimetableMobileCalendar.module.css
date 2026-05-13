@@ -1,0 +1,644 @@
+/* ─── Root ───────────────────────────────────────────────────────────────── */
+.root {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+}
+
+/* Rounded card on wide mobile / tablet (≥ 480 px) */
+@media (min-width: 480px) {
+  .root {
+    border-radius: 16px;
+    border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+    box-shadow:
+      0 1px 3px rgb(0 0 0 / 0.04),
+      0 8px 24px -8px rgb(0 0 0 / 0.09);
+    overflow: hidden;
+  }
+}
+
+/* ─── Toolbar ────────────────────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 14px 12px;
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--color-primary) 7%, var(--color-surface)) 0%,
+    var(--color-surface) 55%
+  );
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+}
+
+.viewSwitcher {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: color-mix(in srgb, var(--color-border) 28%, var(--color-background));
+  border: 1px solid color-mix(in srgb, var(--color-border) 45%, transparent);
+  border-radius: 14px;
+}
+
+.viewBtn {
+  flex: 1;
+  min-height: 40px;
+  padding: 8px 0;
+  border: none;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.14s, color 0.14s, box-shadow 0.14s;
+  white-space: nowrap;
+}
+
+.viewBtnActive {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px -1px color-mix(in srgb, var(--color-primary) 55%, transparent);
+}
+
+.navRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+}
+
+.navArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  border-radius: 12px;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.navArrow:hover {
+  background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface));
+  color: var(--color-primary);
+  border-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+}
+
+.navTitle {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 4px;
+}
+
+.todayBtn {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 45%, transparent);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.todayBtn:hover {
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
+}
+
+/* ─── Slot cards ─────────────────────────────────────────────────────────── */
+.slotCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 52px;
+  padding: 10px 10px 10px 16px;
+  border: 1.5px solid color-mix(in srgb, var(--color-border) 55%, transparent);
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, box-shadow 0.12s, border-color 0.12s;
+  gap: 3px;
+  overflow: hidden;
+}
+
+.slotCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 4px;
+  border-radius: 0 2px 2px 0;
+  background: var(--color-primary);
+}
+
+.slotCard:hover {
+  background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+  box-shadow: 0 2px 10px -3px color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+
+.slotEmpty {
+  background: transparent;
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--color-border) 60%, transparent);
+  min-height: 44px;
+}
+
+.slotEmpty::before {
+  opacity: 0.2;
+}
+
+.slotConflict {
+  border-color: color-mix(in srgb, var(--color-warning, #e6a800) 55%, transparent);
+  background: color-mix(in srgb, var(--color-warning, #e6a800) 7%, var(--color-surface));
+}
+
+.slotConflict::before {
+  background: var(--color-warning, #e6a800);
+}
+
+.slotCompact {
+  padding: 7px 8px 7px 14px;
+  min-height: 44px;
+  border-radius: 9px;
+}
+
+.conflictPip {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-warning, #e6a800);
+}
+
+.slotDash {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  padding: 4px 0;
+  opacity: 0.55;
+}
+
+.slotBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.slotSubj {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.slotMeta {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  line-height: 1.3;
+}
+
+/* ─── Day timeline ───────────────────────────────────────────────────────── */
+.dayView {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 14px 6px;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.tlRow,
+.tlBreak {
+  display: grid;
+  grid-template-columns: 60px 20px 1fr;
+  gap: 0 10px;
+  align-items: flex-start;
+}
+
+.tlBreak {
+  opacity: 0.8;
+}
+
+.tlTime {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: 16px;
+  gap: 2px;
+}
+
+.tlTimeStart {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.15;
+}
+
+.tlTimeEnd {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  line-height: 1.15;
+}
+
+.tlPeriodNum {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.15;
+}
+
+.tlBreakTime {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  line-height: 1.15;
+}
+
+.tlLine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.tlDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--color-primary);
+  border: 2px solid var(--color-surface);
+  box-shadow: 0 0 0 1.5px var(--color-primary);
+}
+
+.tlDotBreak {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--color-warning, #e6a800) 70%, var(--color-border));
+}
+
+.tlConnector {
+  flex: 1;
+  width: 2px;
+  min-height: 28px;
+  background: color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
+  margin-top: 3px;
+}
+
+.tlContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 0 16px;
+}
+
+.tlPeriodLabel {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--color-primary) 65%, var(--color-text-secondary));
+  margin-bottom: 2px;
+}
+
+.tlBreakLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-warning-text, #92400e);
+  background: color-mix(in srgb, var(--color-warning, #e6a800) 10%, var(--color-surface));
+  border: 1px dashed color-mix(in srgb, var(--color-warning, #e6a800) 45%, transparent);
+  border-radius: 9px;
+  padding: 7px 12px;
+}
+
+/* ─── Multi-day (3-day / week) ───────────────────────────────────────────── */
+.multiOuter {
+  display: flex;
+  flex-direction: column;
+}
+
+.multiScroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-border) 70%, transparent) transparent;
+}
+
+.multiGrid {
+  display: grid;
+  grid-template-columns: 52px repeat(var(--day-count, 3), minmax(84px, 1fr));
+  min-width: calc(52px + var(--day-count, 3) * 84px);
+}
+
+.multiCorner {
+  background: var(--color-surface);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--color-border) 45%, transparent);
+  position: sticky;
+  left: 0;
+  z-index: 3;
+}
+
+.multiColHead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 4px;
+  gap: 5px;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--color-border) 28%, transparent);
+  background: var(--color-surface);
+}
+
+.multiColHeadToday {
+  background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+}
+
+.multiColHeadOff {
+  opacity: 0.45;
+}
+
+.multiColDow {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+}
+
+.multiColNum {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  transition: background 0.12s, color 0.12s;
+}
+
+.multiColNumToday {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 1px 6px -1px color-mix(in srgb, var(--color-primary) 60%, transparent);
+}
+
+.multiTimeGutter {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 8px 6px 0 0;
+  border-right: 1px solid color-mix(in srgb, var(--color-border) 45%, transparent);
+  position: sticky;
+  left: 0;
+  background: var(--color-surface);
+  z-index: 2;
+  min-height: 68px;
+}
+
+.multiTimeText {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.multiCell {
+  padding: 4px;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 28%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--color-border) 22%, transparent);
+  min-height: 68px;
+  display: flex;
+  align-items: stretch;
+}
+
+.multiCell > * {
+  flex: 1;
+}
+
+.multiCellOff {
+  background: color-mix(in srgb, var(--color-border) 12%, var(--color-background));
+}
+
+.multiBreakCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  background: color-mix(in srgb, var(--color-warning, #e6a800) 6%, var(--color-surface));
+  border-bottom: 1px dashed color-mix(in srgb, var(--color-warning, #e6a800) 35%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--color-border) 22%, transparent);
+  min-height: 28px;
+}
+
+.multiBreakLabel {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-warning-text, #92400e);
+  opacity: 0.75;
+}
+
+/* ─── Month view ─────────────────────────────────────────────────────────── */
+.monthView {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 12px 6px;
+  gap: 8px;
+}
+
+.monthGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.monthDow {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-text-secondary);
+  padding: 4px 0 10px;
+}
+
+.monthBlank {
+  min-height: 52px;
+}
+
+.monthDay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 2px 6px;
+  border: none;
+  border-radius: 11px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.12s;
+  min-height: 52px;
+}
+
+.monthDay:hover:not(.monthDayToday):not(.monthDaySelected) {
+  background: color-mix(in srgb, var(--color-primary) 7%, var(--color-surface));
+}
+
+.monthDayNum {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: background 0.12s, color 0.12s;
+}
+
+.monthDayOff .monthDayNum {
+  color: var(--color-text-secondary);
+  opacity: 0.38;
+}
+
+.monthDayToday .monthDayNum {
+  color: var(--color-primary);
+  font-weight: 800;
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.monthDaySelected .monthDayNum {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px -2px color-mix(in srgb, var(--color-primary) 55%, transparent);
+}
+
+.monthDots {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 36px;
+}
+
+.monthDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.65;
+}
+
+.monthDayOff .monthDots {
+  opacity: 0.15;
+}
+
+/* ─── No-school placeholder ──────────────────────────────────────────────── */
+.noSchoolBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 44px 20px 28px;
+  text-align: center;
+}
+
+.noSchoolIcon {
+  font-size: 44px;
+  line-height: 1;
+}
+
+.noSchoolText {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.noSchoolSub {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+/* ─── Recurring note ─────────────────────────────────────────────────────── */
+.recurringNote {
+  margin: 10px 0 8px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.4;
+  padding: 0 8px;
+  opacity: 0.75;
+}
+
+/* ─── Very small screens (≤ 360 px): compress month cells ─────────────────── */
+@media (max-width: 360px) {
+  .monthDayNum {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .monthDay {
+    min-height: 46px;
+  }
+
+  .tlRow,
+  .tlBreak {
+    grid-template-columns: 50px 18px 1fr;
+    gap: 0 6px;
+  }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .viewBtn,
+  .navArrow,
+  .todayBtn,
+  .slotCard,
+  .monthDay,
+  .monthDayNum,
+  .multiColNum {
+    transition: none;
+  }
+}
